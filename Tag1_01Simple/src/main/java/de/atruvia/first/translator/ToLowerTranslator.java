@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 //@Primary
-//@Qualifier("lower")
-@Profile("production")
+@Qualifier("lower")
+//@Profile("production")
 public class ToLowerTranslator implements Translator {
 
     @Override
