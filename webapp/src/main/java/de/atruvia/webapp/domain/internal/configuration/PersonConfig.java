@@ -26,6 +26,7 @@ public class PersonConfig {
         return List.of("Banana", "Cherry", "Apple","Raspberry");
     }
 
+    /*
     @Bean
     public PersonService personService(
             PersonRepository repository,
@@ -33,4 +34,6 @@ public class PersonConfig {
             PersonMapper mapper) {
         return new PersonServiceImpl(repository, liste, mapper);
     }
+
+     */
 }

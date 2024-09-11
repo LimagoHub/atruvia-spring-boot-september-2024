@@ -8,6 +8,8 @@ import de.atruvia.webapp.domain.model.Person;
 import de.atruvia.webapp.persistence.PersonRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +19,14 @@ import java.util.Optional;
 
 import java.util.UUID;
 
+@Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = PersonenServiceException.class, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
     //private final BlacklistService blacklistService; // Korrekt
-    private final List<String> blacklist; // nicht gut
+    @Qualifier("blacklist") private final List<String> blacklist; // nicht gut
     private final PersonMapper personMapper;
 
 
