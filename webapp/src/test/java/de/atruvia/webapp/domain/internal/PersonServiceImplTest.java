@@ -1,10 +1,10 @@
 package de.atruvia.webapp.domain.internal;
 
-import de.atruvia.webapp.domain.BlacklistService;
 import de.atruvia.webapp.domain.PersonenServiceException;
 import de.atruvia.webapp.domain.mapper.PersonMapper;
 import de.atruvia.webapp.domain.model.Person;
 import de.atruvia.webapp.persistence.PersonRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,10 +33,21 @@ class PersonServiceImplTest {
     */
 
     @Mock
-    private List<String> blacklist;
+    private List<String> blacklistMock;
+
+    /*
+
+    @BeforeEach
+    void init() {
+        repoMock = Mockito.mock(PersonRepository.class);
+        mapperMock = Mockito.mock(PersonMapper.class);
+        blacklistMock = Mockito.mock(List.class);
+        objectUnderTest = new PersonServiceImpl(repoMock,blacklistMock,mapperMock);
+    }
 
 
 
+     */
     @Test
     @DisplayName("speichern mit leerem Parameter erwartet eine PersonenServiceException")
     void speichernParameterNull() throws Exception {
@@ -75,7 +86,7 @@ class PersonServiceImplTest {
     @Test
     void speichern__unerwuenschte_person__throws_PersonenServiceException() throws Exception {
         final Person attila = Person.builder().id(null).vorname("John").nachname("Doe").build();
-        Mockito.when(blacklist.contains(Mockito.any())).thenReturn(true);
+        Mockito.when(blacklistMock.contains(Mockito.any())).thenReturn(true);
         final PersonenServiceException ex = assertThrows(PersonenServiceException.class, ()->objectUnderTest.speichern(attila));
         assertEquals("Antipath", ex.getMessage());
     }
