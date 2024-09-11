@@ -16,14 +16,15 @@ import java.util.UUID;
 @Transactional
 public class Demo {
 
-    //private final PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    private final MailConnector connector;
+   // private final MailConnector connector;
     @PostConstruct
     public void init() {
 
-        System.out.println(connector);
-        connector.connect();
-
+        //System.out.println(connector);
+        //connector.connect();
+        PersonEntity person = PersonEntity.builder().id(UUID.randomUUID()).vorname("Max").nachname("Mustermann").build();
+        personRepository.save(person);
     }
 }

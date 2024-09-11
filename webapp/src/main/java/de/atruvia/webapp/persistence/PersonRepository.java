@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface PersonRepository extends CrudRepository<PersonEntity, UUID> {
+public interface PersonRepository extends CrudRepository<PersonEntity, UUID>, CustomPersonRepository {
 
     Iterable<PersonEntity> findByVorname(String vorname);
 

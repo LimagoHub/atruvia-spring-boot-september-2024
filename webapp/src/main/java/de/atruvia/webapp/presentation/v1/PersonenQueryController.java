@@ -45,7 +45,7 @@ public class PersonenQueryController {
     }
 
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Iterable<PersonDTO>> findById(
+    public ResponseEntity<Iterable<PersonDTO>> findAll(
             @RequestParam(required = false, defaultValue = "Fritz") String vorname,
             @RequestParam(required = false, defaultValue = "Schmitt") String nachname
     ) throws PersonenServiceException{
