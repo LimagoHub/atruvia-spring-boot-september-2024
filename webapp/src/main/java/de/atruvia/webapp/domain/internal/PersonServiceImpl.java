@@ -7,21 +7,23 @@ import de.atruvia.webapp.domain.mapper.PersonMapper;
 import de.atruvia.webapp.domain.model.Person;
 import de.atruvia.webapp.persistence.PersonRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 import java.util.UUID;
-@Service
+
 @RequiredArgsConstructor
 @Transactional(rollbackFor = PersonenServiceException.class, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
-    private final BlacklistService blacklistService;
+    //private final BlacklistService blacklistService; // Korrekt
+    private final List<String> blacklist; // nicht gut
     private final PersonMapper personMapper;
 
 
@@ -103,7 +105,7 @@ public class PersonServiceImpl implements PersonService {
             throw new PersonenServiceException("Vorname zu kurz");
         if(person.getNachname() == null || person.getNachname().length() < 2)
             throw new PersonenServiceException("Nachname zu kurz");
-        if(blacklistService.isBlacklisted(person))
+        if(blacklist.contains(person.getVorname()))
             throw new PersonenServiceException("Antipath");
     }
 }

@@ -1,6 +1,7 @@
 package de.atruvia.webapp;
 
 
+import de.atruvia.webapp.domain.mail.MailConnector;
 import de.atruvia.webapp.persistence.PersonRepository;
 import de.atruvia.webapp.persistence.entity.PersonEntity;
 import jakarta.annotation.PostConstruct;
@@ -11,15 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-//@Component
+@Component
 @Transactional
 public class Demo {
 
-    private final PersonRepository personRepository;
+    //private final PersonRepository personRepository;
 
+    private final MailConnector connector;
     @PostConstruct
     public void init() {
 
-        personRepository.findAllTinyPersons().forEach(System.out::println);
+        System.out.println(connector);
+        connector.connect();
+
     }
 }

@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,8 +28,14 @@ class PersonServiceImplTest {
     @Mock
     private PersonMapper mapperMock;
 
-    @Mock
+   /* @Mock
     private BlacklistService blacklistMock;
+    */
+
+    @Mock
+    private List<String> blacklist;
+
+
 
     @Test
     @DisplayName("speichern mit leerem Parameter erwartet eine PersonenServiceException")
@@ -67,7 +75,7 @@ class PersonServiceImplTest {
     @Test
     void speichern__unerwuenschte_person__throws_PersonenServiceException() throws Exception {
         final Person attila = Person.builder().id(null).vorname("John").nachname("Doe").build();
-        Mockito.when(blacklistMock.isBlacklisted(Mockito.any())).thenReturn(true);
+        Mockito.when(blacklist.contains(Mockito.any())).thenReturn(true);
         final PersonenServiceException ex = assertThrows(PersonenServiceException.class, ()->objectUnderTest.speichern(attila));
         assertEquals("Antipath", ex.getMessage());
     }
