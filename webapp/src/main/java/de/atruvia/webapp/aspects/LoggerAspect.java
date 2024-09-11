@@ -3,10 +3,8 @@ package de.atruvia.webapp.aspects;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,5 +28,11 @@ public class LoggerAspect {
 
         log.warn(String.format("############################# Afterreturning: %s ######################", joinPoint.getSignature().getName()));
         log.warn(String.format("############################# Result: %s ######################", result.toString()));
+    }
+
+    @Around()
+    public Object around(final ProceedingJoinPoint joinPoint) throws Throwable{
+
+        return joinPoint.proceed();
     }
 }
